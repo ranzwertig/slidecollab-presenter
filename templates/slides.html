@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Your slidefolder - Slidecollab{% endblock %}
+{% block page_title %}Your slidefolder{% endblock %}
+
+{% block content %}
+    <p>
+        Please select one of the files listed below to start the presenter.
+    </p>
+    <ul>
+        {% for content in contents %}
+        <li><a href="/presenter?path={{content.path}}">{{content.path}}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

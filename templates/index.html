@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}Slidecollab{% endblock %}
+
+{% block content %}
+    {% if username %}   
+        <section id="main_logged_in">
+            Hello {{username}} you are currently logged in. To start a presentation please go to your <a href="/slides">Slides</a> page.<br>Or log out <a href="/connect/logout">here</a>.
+        </section>
+    {% else %}
+        <section id="main_logged_out">
+            Hey there, you are currently not loged in. If you like to access your "apps/slidecollab" dropbox folder please <a href="/connect/login">Sign In</a> here.
+        </section>
+    {% endif %}
+    <section id="description">
+        Presentations made easy! Presenter beams your dropbox to you browser to show your slides everywhere.
+    </section>
+    <section id="warning">
+        Currently this is just a proove of concept and in a very early state of development. If you are interested in this project please contact <a href="/about">me</a>.
+    </section>
+    <div class="box left">
+        <h3>How to use</h3>
+        <p>
+            The slidecollab presenter allows you to connect to your Dropbox via the <a href="https://www.dropbox.com/developers/reference/api">Dropbox API</a>.
+            By clicking the <a href="/connect/login">Sign In</a> link you will be logged in to your Dropbox account using OAuth. This allows us to see whats 
+            in your "/slidecollab" Dropbox folder.
+        </p>
+        <p>
+            After a successful sign up to your Dropbox account you can find it's content on the <a href="/slides">Slides</a> page. 
+            There are all files listed we found inside your "apps/slidecollab" folder. 
+        </p>
+        <p>
+            By clicking a filelink on the <a href="/slides">Slides</a> page the presenter will open. <a href="/help">read more ...</a>
+        </p>
+    </div>
+    <div class="box right">
+        <h3>How does it work?</h3>
+        <p>
+            The slidecollab presenter connects to your Dropbox account and allows you to show files in your "/slidecollab" folder in your Dropbox.
+            The Presenter is based on <a href="https://github.com/mozilla/pdf.js">pdf.js</a> so you don't need any plugins to show your PDF presentations in 
+            your browser.
+        </p>
+        <h3>Links</h3>
+        <ul>
+            <li><a href="https://github.com/mozilla/pdf.js">The pdf.js project in GitHub</a></li>
+            <li><a href="https://www.dropbox.com/developers/reference/api">Dropbox developer page and API reference</a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+{% endblock %}

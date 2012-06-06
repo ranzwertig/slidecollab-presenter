@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Presenter - slidecolab</title>
+        <link href="/assets/styles/main.css" rel="stylesheet" type="text/css">
+        <script src="/assets/scripts/pdf.js"></script>
+        <script type="text/javascript">
+            PDFJS.workerSrc = '/assets/scripts/pdf.js';
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script>
+            'use strict';
+            
+            var PDF = '/assets/test/test.pdf';
+            
+            $(document).ready(function(){
+                
+                var current_page = 1;
+                // init the presentation with the first page
+                PDFJS.getPdf('{{pdf}}', function getPdfHelloWorld(data) {
+                    var pdf = new PDFJS.PDFDoc(data);
+                    var scale = 1;
+                    var canvas = document.getElementById('screen');
+                    var context = canvas.getContext('2d');
+                    
+                    var page = pdf.getPage(current_page);                 
+                    var scale_foctor = page.width / page.height;
+                    canvas.height = $(window).height() - 20;
+                    canvas.width = ( $(window).height() - 20 ) * scale_foctor;
+                    $('.canvas_container').width(canvas.width);
+                    $('.canvas_container').height(canvas.height);
+                    page.startRendering(context);
+                    
+                    $(window).resize(function(){
+                         var page = pdf.getPage(current_page);                 
+                         var scale_foctor = page.width / page.height;
+                         canvas.height = $(window).height() - 20;
+                         canvas.width = ( $(window).height() - 20 ) * scale_foctor;
+                         $('.canvas_container').width(canvas.width);
+                         $('.canvas_container').height(canvas.height);
+                         page.startRendering(context);
+                    });
+                    
+                    $(document).keydown(function(event){
+                        if(event.keyCode == 33 || event.keyCode == 39 || event.keyCode == 38 || event.keyCode == 32) {
+                            if(current_page < pdf.numPages) {
+                                current_page++;
+                                var page = pdf.getPage(current_page);                 
+                                var scale_foctor = page.width / page.height;
+                                canvas.height = $(window).height() - 20;
+                                canvas.width = ( $(window).height() - 20 ) * scale_foctor;
+                                $('.canvas_container').width(canvas.width);
+                                $('.canvas_container').height(canvas.height);
+                                page.startRendering(context);
+                            }
+                        }
+                        if(event.keyCode == 34 || event.keyCode == 37 || event.keyCode == 40 || event.keyCode == 8) {
+                            if(current_page > 1) {
+                                current_page--;
+                                var page = pdf.getPage(current_page);                 
+                                var scale_foctor = page.width / page.height;
+                                canvas.height = $(window).height() - 20;
+                                canvas.width = ( $(window).height() - 20 ) * scale_foctor;
+                                $('.canvas_container').width(canvas.width);
+                                $('.canvas_container').height(canvas.height);
+                                page.startRendering(context);
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+        <style>
+            .presenter { width: 100%; }
+            .presenter .canvas_container { margin:auto; }
+        </style>
+    </head>
+    <body>
+        <section class="presenter" id="first">
+            <div class="canvas_container">
+                <canvas id="screen"/>
+            </div>
+        </section>
+        <footer>
+            presenter.slidecollab | <a href="/slides">Slides</a> | <a href="/help">Help</a> | <a href="/about">About</a>
+        <footer>
+    </body>
+</html>

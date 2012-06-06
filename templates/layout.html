@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+        <link href="/assets/styles/main.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header>
+            <div class="wrapper" class="clearfix">
+                <a href="/"><img id="logo" src="/assets/images/logo.png" alt="logo">
+                <h1>PRESENTER|<span class="small">slidecollab</span></h1></a>
+                <section id="login">
+                    {% if username %}
+                        {{username}} <a href="/connect/logout" title="logout">log out</a>
+                    {% else %}
+                        <a href="/connect/login" title="connect with dropbox">sign in</a>
+                    {% endif %}
+                </section>
+                <div class="clear"></div>
+            </div>
+        </header>
+        <section id="page_title">
+            <div class="wrapper">
+                <h2>{% block page_title %}{% endblock %}</h2>
+            </div>
+        </section>
+        <section id="main">
+            <div class="wrapper">
+                {% block content %}{% endblock %}
+            </div>
+        </section>
+        <footer>
+            <div class="wrapper">
+                <nav>
+                    copyright 2012-2013 <a href="http://www.christianranz.com">Christian Ranz</a> | <a href="/help">Help</a> | <a href="/about">About</a> 
+                </nav>
+            </div>
+        </footer>
+    </body>
+</html>
